@@ -8,13 +8,13 @@ This application provides strict role-based access control (RBAC) to streamline 
 
 # Tech Stack
 
-| Layer | Technologies |
-|--------|--------------|
-| **Backend** | [Java 21](https://docs.oracle.com/en/java/javase/21/), [Spring Boot 3](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/), [Spring Security](https://docs.spring.io/spring-security/reference/) (JWT) |
-| **Database** | [PostgreSQL](https://www.postgresql.org/docs/), [Redis](https://redis.io/docs/latest/) |
-| **Web Frontend** | [Angular 16](https://v16.angular.io/docs), [SCSS](https://sass-lang.com/documentation/), [Tailwind CSS v3](https://v3.tailwindcss.com/docs), [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/) |
-| **Mobile App** | [Flutter](https://docs.flutter.dev/), [Dart](https://dart.dev/guides) |
-| **Infrastructure** | [Docker](https://docs.docker.com/), [Docker Compose](https://docs.docker.com/compose/) |
+| Layer              | Technologies                                                                                                                                                                                                                |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Backend**        | [Java 21](https://docs.oracle.com/en/java/javase/21/), [Spring Boot 3](https://docs.spring.io/spring-boot/docs/3.0.0/reference/html/), [Spring Security](https://docs.spring.io/spring-security/reference/) (JWT)           |
+| **Database**       | [PostgreSQL](https://www.postgresql.org/docs/), [Redis](https://redis.io/docs/latest/)                                                                                                                                      |
+| **Web Frontend**   | [Angular 16](https://v16.angular.io/docs), [SCSS](https://sass-lang.com/documentation/), [Tailwind CSS v3](https://v3.tailwindcss.com/docs), [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/) |
+| **Mobile App**     | [Flutter](https://docs.flutter.dev/), [Dart](https://dart.dev/guides)                                                                                                                                                       |
+| **Infrastructure** | [Docker](https://docs.docker.com/), [Docker Compose](https://docs.docker.com/compose/)                                                                                                                                      |
 
 ---
 
@@ -181,7 +181,8 @@ Allow Maven to resolve and download all dependencies.
 Run the main application class or execute:
 
 ```bash
-./mvnw spring-boot:run
+set -a; source ./.env; set +a
+spring-boot:run
 ```
 
 The backend will be available at:
@@ -261,12 +262,12 @@ flutter run
 
 # Performance Targets
 
-| Metric | Target |
-|---------|--------|
+| Metric            | Target        |
+| ----------------- | ------------- |
 | API Response Time | < 2.5 seconds |
-| Authentication | JWT |
-| Database | PostgreSQL |
-| Cache | Redis |
+| Authentication    | JWT           |
+| Database          | PostgreSQL    |
+| Cache             | Redis         |
 
 ---
 

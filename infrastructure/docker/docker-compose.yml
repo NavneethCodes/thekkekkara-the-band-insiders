@@ -1,0 +1,83 @@
+services:
+
+  postgres:
+    image: postgres:18.4
+
+    container_name: thekkekkara-postgres
+
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_ADMIN_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
+
+      IDENTITY_SCHEMA: ${IDENTITY_SCHEMA}
+      IDENTITY_DB_USER: ${IDENTITY_DB_USER}
+      IDENTITY_DB_PASSWORD: ${IDENTITY_DB_PASSWORD}
+
+      ASSIGNMENT_SCHEMA: ${ASSIGNMENT_SCHEMA}
+      ASSIGNMENT_DB_USER: ${ASSIGNMENT_DB_USER}
+      ASSIGNMENT_DB_PASSWORD: ${ASSIGNMENT_DB_PASSWORD}
+
+      CALENDAR_SCHEMA: ${CALENDAR_SCHEMA}
+      CALENDAR_DB_USER: ${CALENDAR_DB_USER}
+      CALENDAR_DB_PASSWORD: ${CALENDAR_DB_PASSWORD}
+
+      FINANCE_SCHEMA: ${FINANCE_SCHEMA}
+      FINANCE_DB_USER: ${FINANCE_DB_USER}
+      FINANCE_DB_PASSWORD: ${FINANCE_DB_PASSWORD}
+
+      GIG_SCHEMA: ${GIG_SCHEMA}
+      GIG_DB_USER: ${GIG_DB_USER}
+      GIG_DB_PASSWORD: ${GIG_DB_PASSWORD}
+
+      MEDIA_SCHEMA: ${MEDIA_SCHEMA}
+      MEDIA_DB_USER: ${MEDIA_DB_USER}
+      MEDIA_DB_PASSWORD: ${MEDIA_DB_PASSWORD}
+
+      NOTIFICATION_SCHEMA: ${NOTIFICATION_SCHEMA}
+      NOTIFICATION_DB_USER: ${NOTIFICATION_DB_USER}
+      NOTIFICATION_DB_PASSWORD: ${NOTIFICATION_DB_PASSWORD}
+
+      SETLIST_SCHEMA: ${SETLIST_SCHEMA}
+      SETLIST_DB_USER: ${SETLIST_DB_USER}
+      SETLIST_DB_PASSWORD: ${SETLIST_DB_PASSWORD}
+
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+    volumes:
+      - postgres-data:/var/lib/postgresql
+      - ./postgres/init:/docker-entrypoint-initdb.d
+
+    networks:
+      - thekkekkara-network
+
+  redis:
+    image: redis:8
+
+    container_name: thekkekkara-redis
+
+    restart: unless-stopped
+
+    command: redis-server --appendonly yes
+
+    ports:
+      - "${REDIS_PORT}:6379"
+
+    volumes:
+      - redis-data:/data
+
+    networks:
+      - thekkekkara-network
+
+volumes:
+
+  postgres-data:
+
+  redis-data:
+
+networks:
+
+  thekkekkara-network:
