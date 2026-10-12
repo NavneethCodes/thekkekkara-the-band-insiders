@@ -181,8 +181,15 @@ Allow Maven to resolve and download all dependencies.
 Run the main application class or execute:
 
 ```bash
+(For Linux)
 set -a; source ./.env; set +a
+
+(For Windows)
+Get-Content .env | Where-Object { $_ -match '^\w+=' } | ForEach-Object { $name, $value = $_ -split '=', 2; Set-Item -Path "env:\$name" -Value $value }
+
 spring-boot:run
+OR
+./mvnw spring-boot:run
 ```
 
 The backend will be available at:
