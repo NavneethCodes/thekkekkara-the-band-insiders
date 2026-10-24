@@ -22,19 +22,19 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role createRole(Role role) {
-        if (repository.existsByBandIdAndRoleName(role.getBandIdLong(), role.getRoleNameString())) {
+        if (this.repository.existsByBandIdAndRoleName(role.getBandIdLong(), role.getRoleNameString())) {
             throw new IllegalArgumentException("Role Already exists for this band!");
         }
-        RoleEntity entity = mapper.toEntity(role);
-        RoleEntity saveEntity = repository.save(entity);
-        return mapper.toDomain(saveEntity);
+        RoleEntity entity = this.mapper.toEntity(role);
+        RoleEntity saveEntity = this.repository.save(entity);
+        return this.mapper.toDomain(saveEntity);
     }
 
     @Override
     public Role getRoleById(Long roleIdLong) {
 
-        return repository.findById(roleIdLong)
-                .map(mapper::toDomain)
+        return this.repository.findById(roleIdLong)
+                .map(this.mapper::toDomain)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Role not found with id" + roleIdLong));
     }
@@ -42,26 +42,26 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public List<Role> getRolesByBandId(Long bandIdLong) {
 
-        return repository.findByBandId(bandIdLong)
+        return this.repository.findByBandId(bandIdLong)
                 .stream()
-                .map(mapper::toDomain)
+                .map(this.mapper::toDomain)
                 .toList();
     }
 
     @Override
     public Role getRoleByBandIdAndRoleName(Long bandIdLong, String roleNameString) {
-        return repository.findByBandIdAndRoleName(bandIdLong, roleNameString)
-                .map(mapper::toDomain)
+        return this.repository.findByBandIdAndRoleName(bandIdLong, roleNameString)
+                .map(this.mapper::toDomain)
                 .orElseThrow(() -> new IllegalArgumentException(
                         "Role not found for the band!"));
     }
 
     @Override
     public void deleteRole(Long roleIdLong) {
-        if (!repository.existsById(roleIdLong)) {
+        if (!this.repository.existsById(roleIdLong)) {
             throw new IllegalArgumentException(
                     "Role not found with id: " + roleIdLong);
         }
-        repository.deleteById(roleIdLong);
+        this.repository.deleteById(roleIdLong);
     }
 }

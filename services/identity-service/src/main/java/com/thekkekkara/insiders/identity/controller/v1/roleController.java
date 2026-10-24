@@ -22,12 +22,12 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/bands/{bandId}/roles")
-public class roleController {
+public class RoleController {
 
     private final RoleService roleService;
     private final RoleRowMapper mapper;
 
-    public roleController(RoleService roleService, RoleRowMapper mapper) {
+    public RoleController(RoleService roleService, RoleRowMapper mapper) {
         this.roleService = roleService;
         this.mapper = mapper;
     }
@@ -37,7 +37,7 @@ public class roleController {
     public RoleResponse createRole(
             @PathVariable Long bandIdLong,
             @Valid @RequestBody CreateRoleRequest request) {
-        Role role = mapper.toDomain(request);
+        Role role = this.mapper.toDomain(request);
         role = new Role(
                 role.getRoleIdLong(),
                 bandIdLong,
@@ -46,15 +46,15 @@ public class roleController {
                 role.getCreatedAtLocalDateTime(),
                 role.getUpdatedAtLocalDateTime());
 
-        Role createdRole = roleService.createRole(role);
+        Role createdRole = this.roleService.createRole(role);
 
-        return mapper.toResponse(createdRole);
+        return this.mapper.toResponse(createdRole);
     }
 
     @GetMapping
     public List<RoleResponse> getRolesByBandId(
             @PathVariable Long BandIdLong) {
-        return roleService.getRolesByBandId(BandIdLong)
+        return this.roleService.getRolesByBandId(BandIdLong)
                 .stream()
                 .map(mapper::toResponse)
                 .toList();
@@ -64,20 +64,20 @@ public class roleController {
     public RoleResponse getRoleById(
             @PathVariable Long bandIdLong,
             @PathVariable Long roleIdLong) {
-        Role role = roleService.getRoleById(roleIdLong);
+        Role role = this.roleService.getRoleById(roleIdLong);
         if (!role.getBandIdLong().equals(bandIdLong)) {
             throw new IllegalArgumentException(
                     "Role does not belong to the specified band");
         }
-        return mapper.toResponse(role);
+        return this.mapper.toResponse(role);
     }
 
     @GetMapping("name/{roleNameString}")
     public RoleResponse getRoleByBandIdAndRoleName(
             @PathVariable Long bandIdLong,
             @PathVariable String roleNameString) {
-        Role role = roleService.getRoleByBandIdAndRoleName(bandIdLong, roleNameString);
-        return mapper.toResponse(role);
+        Role role = this.roleService.getRoleByBandIdAndRoleName(bandIdLong, roleNameString);
+        return this.mapper.toResponse(role);
     }
 
     @DeleteMapping("/{roleId}")
@@ -85,11 +85,11 @@ public class roleController {
     public void deleteRole(
             @PathVariable Long bandIdLong,
             @PathVariable Long roleId) {
-        Role role = roleService.getRoleById(roleId);
+        Role role = this.roleService.getRoleById(roleId);
         if (!role.getBandIdLong().equals(bandIdLong)) {
             throw new IllegalArgumentException(
                     "Role does not belong to the band!");
         }
-        roleService.deleteRole(roleId);
+        this.roleService.deleteRole(roleId);
     }
 }

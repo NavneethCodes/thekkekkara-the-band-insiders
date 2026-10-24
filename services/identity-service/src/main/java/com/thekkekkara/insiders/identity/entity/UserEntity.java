@@ -18,9 +18,17 @@ public class UserEntity {
     public UserEntity() {
     }
 
-    public UserEntity(Long userIdLong, String usernameString, String emailString, String passwordHashString,
-            String fullNameString, String lastNameString, Boolean enabledBoolean, Boolean accountLockedBoolean,
-            LocalDateTime createdAtLocalDateTime, LocalDateTime updatedAtLocalDateTime) {
+    public UserEntity(
+            Long userIdLong,
+            String usernameString,
+            String emailString,
+            String passwordHashString,
+            String fullNameString,
+            String lastNameString,
+            Boolean enabledBoolean,
+            Boolean accountLockedBoolean,
+            LocalDateTime createdAtLocalDateTime,
+            LocalDateTime updatedAtLocalDateTime) {
         this.userIdLong = userIdLong;
         this.usernameString = usernameString;
         this.emailString = emailString;
