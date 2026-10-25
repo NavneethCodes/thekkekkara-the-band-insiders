@@ -1,3 +1,4 @@
+
 package com.thekkekkara.insiders.identity.controller.v1;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.thekkekkara.insiders.identity.domain.Role;
 import com.thekkekkara.insiders.identity.dto.role.CreateRoleRequest;
 import com.thekkekkara.insiders.identity.dto.role.RoleResponse;
+import com.thekkekkara.insiders.identity.exception.ResourceNotFoundException;
 import com.thekkekkara.insiders.identity.repository.mapper.RoleRowMapper;
 import com.thekkekkara.insiders.identity.service.RoleService;
 
@@ -27,7 +29,9 @@ public class RoleController {
     private final RoleService roleService;
     private final RoleRowMapper mapper;
 
-    public RoleController(RoleService roleService, RoleRowMapper mapper) {
+    public RoleController(
+            RoleService roleService,
+            RoleRowMapper mapper) {
         this.roleService = roleService;
         this.mapper = mapper;
     }
@@ -35,9 +39,11 @@ public class RoleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public RoleResponse createRole(
-            @PathVariable Long bandIdLong,
+            @PathVariable("bandId") Long bandIdLong,
             @Valid @RequestBody CreateRoleRequest request) {
+
         Role role = this.mapper.toDomain(request);
+
         role = new Role(
                 role.getRoleIdLong(),
                 bandIdLong,
@@ -53,43 +59,81 @@ public class RoleController {
 
     @GetMapping
     public List<RoleResponse> getRolesByBandId(
-            @PathVariable Long BandIdLong) {
-        return this.roleService.getRolesByBandId(BandIdLong)
+            @PathVariable("bandId") Long bandIdLong) {
+
+        List<RoleResponse> roles = this.roleService
+                .getRolesByBandId(bandIdLong)
                 .stream()
-                .map(mapper::toResponse)
+                .map(this.mapper::toResponse)
                 .toList();
+
+        if (roles.isEmpty()) {
+            throw new ResourceNotFoundException(
+                    "No roles attached to band ID: " + bandIdLong);
+        }
+
+        return roles;
     }
 
     @GetMapping("/{roleIdLong}")
     public RoleResponse getRoleById(
-            @PathVariable Long bandIdLong,
-            @PathVariable Long roleIdLong) {
-        Role role = this.roleService.getRoleById(roleIdLong);
+            @PathVariable("bandId") Long bandIdLong,
+            @PathVariable("roleIdLong") Long roleIdLong) {
+
+        Role role = findRoleById(roleIdLong);
+
         if (!role.getBandIdLong().equals(bandIdLong)) {
-            throw new IllegalArgumentException(
-                    "Role does not belong to the specified band");
+            throw new ResourceNotFoundException(
+                    "No role found with role ID: " + roleIdLong
+                            + " attached to band ID: " + bandIdLong);
         }
+
         return this.mapper.toResponse(role);
     }
 
-    @GetMapping("name/{roleNameString}")
+    @GetMapping("/name/{roleNameString}")
     public RoleResponse getRoleByBandIdAndRoleName(
-            @PathVariable Long bandIdLong,
-            @PathVariable String roleNameString) {
-        Role role = this.roleService.getRoleByBandIdAndRoleName(bandIdLong, roleNameString);
+            @PathVariable("bandId") Long bandIdLong,
+            @PathVariable("roleNameString") String roleNameString) {
+
+        Role role;
+
+        try {
+            role = this.roleService.getRoleByBandIdAndRoleName(
+                    bandIdLong,
+                    roleNameString);
+        } catch (IllegalArgumentException exception) {
+            throw new ResourceNotFoundException(
+                    "No role named " + roleNameString
+                            + " attached to band ID: " + bandIdLong);
+        }
+
         return this.mapper.toResponse(role);
     }
 
     @DeleteMapping("/{roleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteRole(
-            @PathVariable Long bandIdLong,
-            @PathVariable Long roleId) {
-        Role role = this.roleService.getRoleById(roleId);
+            @PathVariable("bandId") Long bandIdLong,
+            @PathVariable("roleId") Long roleId) {
+
+        Role role = findRoleById(roleId);
+
         if (!role.getBandIdLong().equals(bandIdLong)) {
-            throw new IllegalArgumentException(
-                    "Role does not belong to the band!");
+            throw new ResourceNotFoundException(
+                    "No role found with role ID: " + roleId
+                            + " attached to band ID: " + bandIdLong);
         }
+
         this.roleService.deleteRole(roleId);
+    }
+
+    private Role findRoleById(Long roleIdLong) {
+        try {
+            return this.roleService.getRoleById(roleIdLong);
+        } catch (IllegalArgumentException exception) {
+            throw new ResourceNotFoundException(
+                    "No role found with role ID: " + roleIdLong);
+        }
     }
 }

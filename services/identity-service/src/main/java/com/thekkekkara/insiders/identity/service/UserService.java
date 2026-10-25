@@ -18,4 +18,6 @@ public interface UserService {
     boolean doesUserExistByEmail(String emailString);
 
     void deleteUserById(Long userIdLong);
+
+    boolean isPlatformAdminByUserId(Long userIdLong);
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.thekkekkara.insiders.identity.domain.User;
 import com.thekkekkara.insiders.identity.entity.UserEntity;
+import com.thekkekkara.insiders.identity.exception.ResourceNotFoundException;
 import com.thekkekkara.insiders.identity.repository.UserRepository;
 import com.thekkekkara.insiders.identity.repository.mapper.UserRowMapper;
 import com.thekkekkara.insiders.identity.service.UserService;
@@ -36,7 +37,7 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Email already taken!");
         }
 
-        String encodedPassword = passwordEncoder.encode(
+        String encodedPassword = this.passwordEncoder.encode(
                 user.getPasswordHashString());
 
         User userWithEncodedPassword = new User(
@@ -61,7 +62,7 @@ public class UserServiceImpl implements UserService {
     public User getUserById(Long userIdLong) {
         return this.repository.findById(userIdLong)
                 .map(this.mapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with ID: " + userIdLong));
     }
 
@@ -69,7 +70,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String usernameString) {
         return this.repository.findByUsername(usernameString)
                 .map(this.mapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with username: " + usernameString));
     }
 
@@ -77,7 +78,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String emailString) {
         return this.repository.findByEmail(emailString)
                 .map(this.mapper::toDomain)
-                .orElseThrow(() -> new IllegalArgumentException(
+                .orElseThrow(() -> new ResourceNotFoundException(
                         "User not found with email: " + emailString));
     }
 
@@ -102,10 +103,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long userIdLong) {
         if (!this.repository.existsByUserId(userIdLong)) {
-            throw new IllegalArgumentException(
+            throw new ResourceNotFoundException(
                     "User not found with ID: " + userIdLong);
         }
 
         this.repository.deleteById(userIdLong);
+    }
+
+    @Override
+    public boolean isPlatformAdminByUserId(Long userIdLong) {
+        return this.repository.isPlatformAdminByUserId(userIdLong);
     }
 }

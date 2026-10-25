@@ -204,4 +204,22 @@ public class UserRepository {
 
                 this.namedParameterJdbcTemplate.update(sql, parameters);
         }
+
+        public boolean isPlatformAdminByUserId(Long userIdLong) {
+                String sql = """
+                                SELECT is_platform_admin
+                                FROM users
+                                WHERE user_id = :userIdLong
+                                """;
+
+                MapSqlParameterSource parameters = new MapSqlParameterSource()
+                                .addValue("userIdLong", userIdLong);
+
+                Boolean isPlatformAdmin = this.namedParameterJdbcTemplate.queryForObject(
+                                sql,
+                                parameters,
+                                Boolean.class);
+
+                return Boolean.TRUE.equals(isPlatformAdmin);
+        }
 }

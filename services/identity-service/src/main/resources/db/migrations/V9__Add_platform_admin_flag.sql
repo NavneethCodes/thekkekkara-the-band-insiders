@@ -1,0 +1,2 @@
+ALTER TABLE auth.users
+ADD COLUMN is_platform_admin BOOLEAN NOT NULL DEFAULT FALSE;
