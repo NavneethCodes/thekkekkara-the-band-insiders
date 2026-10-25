@@ -30,7 +30,7 @@ public class RoleEntity {
     }
 
     public Long getRoleIdLong() {
-        return roleIdLong;
+        return this.roleIdLong;
     }
 
     public void setRoleIdLong(Long roleIdLong) {
@@ -38,7 +38,7 @@ public class RoleEntity {
     }
 
     public Long getBandIdLong() {
-        return bandIdLong;
+        return this.bandIdLong;
     }
 
     public void setBandIdLong(Long bandIdLong) {
@@ -46,7 +46,7 @@ public class RoleEntity {
     }
 
     public String getRoleNameString() {
-        return roleNameString;
+        return this.roleNameString;
     }
 
     public void setRoleNameString(String roleNameString) {
@@ -54,7 +54,7 @@ public class RoleEntity {
     }
 
     public String getRoleDescriptionString() {
-        return roleDescriptionString;
+        return this.roleDescriptionString;
     }
 
     public void setRoleDescriptionString(String roleDescriptionString) {
@@ -62,7 +62,7 @@ public class RoleEntity {
     }
 
     public LocalDateTime getCreatedAtLocalDateTime() {
-        return createdAtLocalDateTime;
+        return this.createdAtLocalDateTime;
     }
 
     public void setCreatedAtLocalDateTime(LocalDateTime createdAtLocalDateTime) {
@@ -70,7 +70,7 @@ public class RoleEntity {
     }
 
     public LocalDateTime getUpdatedAtLocalDateTime() {
-        return updatedAtLocalDateTime;
+        return this.updatedAtLocalDateTime;
     }
 
     public void setUpdatedAtLocalDateTime(LocalDateTime updatedAtLocalDateTime) {

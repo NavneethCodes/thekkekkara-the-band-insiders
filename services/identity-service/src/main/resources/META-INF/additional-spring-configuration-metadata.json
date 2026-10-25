@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "JWT_PRIVATE_KEY_PATH",
+      "type": "java.lang.String",
+      "description": "Filesystem path to the RSA private key used to sign JWT access tokens."
+    },
+    {
+      "name": "JWT_PUBLIC_KEY_PATH",
+      "type": "java.lang.String",
+      "description": "Filesystem path to the RSA public key used to verify JWT signatures."
+    },
+    {
+      "name": "JWT_ISSUER",
+      "type": "java.lang.String",
+      "description": "Expected JWT issuer identifier. Tokens issued by a different issuer are rejected."
+    }
+  ]
+}

@@ -27,27 +27,27 @@ public class Role {
     }
 
     public Long getRoleIdLong() {
-        return roleIdLong;
+        return this.roleIdLong;
     }
 
     public Long getBandIdLong() {
-        return bandIdLong;
+        return this.bandIdLong;
     }
 
     public String getRoleNameString() {
-        return roleNameString;
+        return this.roleNameString;
     }
 
     public String getRoleDescriptionString() {
-        return roleDescriptionString;
+        return this.roleDescriptionString;
     }
 
     public LocalDateTime getCreatedAtLocalDateTime() {
-        return createdAtLocalDateTime;
+        return this.createdAtLocalDateTime;
     }
 
     public LocalDateTime getUpdatedAtLocalDateTime() {
-        return updatedAtLocalDateTime;
+        return this.updatedAtLocalDateTime;
     }
 
 }

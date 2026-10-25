@@ -31,43 +31,43 @@ public class User {
     }
 
     public Long getUserIdLong() {
-        return userIdLong;
+        return this.userIdLong;
     }
 
     public String getUsernameString() {
-        return usernameString;
+        return this.usernameString;
     }
 
     public String getEmailString() {
-        return emailString;
+        return this.emailString;
     }
 
     public String getPasswordHashString() {
-        return passwordHashString;
+        return this.passwordHashString;
     }
 
     public String getFirstNameString() {
-        return firstNameString;
+        return this.firstNameString;
     }
 
     public String getLastNameString() {
-        return lastNameString;
+        return this.lastNameString;
     }
 
     public Boolean getEnabledBoolean() {
-        return enabledBoolean;
+        return this.enabledBoolean;
     }
 
     public Boolean getAccountLockedBoolean() {
-        return accountLockedBoolean;
+        return this.accountLockedBoolean;
     }
 
     public LocalDateTime getCreatedAtLocalDateTime() {
-        return createdAtLocalDateTime;
+        return this.createdAtLocalDateTime;
     }
 
     public LocalDateTime getUpdatedAtLocalDateTime() {
-        return updatedAtLocalDateTime;
+        return this.updatedAtLocalDateTime;
     }
 
 }

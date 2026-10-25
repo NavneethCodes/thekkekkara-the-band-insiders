@@ -42,7 +42,7 @@ public class UserEntity {
     }
 
     public Long getUserIdLong() {
-        return userIdLong;
+        return this.userIdLong;
     }
 
     public void setUserIdLong(Long userIdLong) {
@@ -50,7 +50,7 @@ public class UserEntity {
     }
 
     public String getUsernameString() {
-        return usernameString;
+        return this.usernameString;
     }
 
     public void setUsernameString(String usernameString) {
@@ -58,7 +58,7 @@ public class UserEntity {
     }
 
     public String getEmailString() {
-        return emailString;
+        return this.emailString;
     }
 
     public void setEmailString(String emailString) {
@@ -66,7 +66,7 @@ public class UserEntity {
     }
 
     public String getPasswordHashString() {
-        return passwordHashString;
+        return this.passwordHashString;
     }
 
     public void setPasswordHashString(String passwordHashString) {
@@ -74,7 +74,7 @@ public class UserEntity {
     }
 
     public String getFirstNameString() {
-        return firstNameString;
+        return this.firstNameString;
     }
 
     public void setFirstNameString(String fullNameString) {
@@ -82,7 +82,7 @@ public class UserEntity {
     }
 
     public String getLastNameString() {
-        return lastNameString;
+        return this.lastNameString;
     }
 
     public void setLastNameString(String lastNameString) {
@@ -90,7 +90,7 @@ public class UserEntity {
     }
 
     public Boolean getEnabledBoolean() {
-        return enabledBoolean;
+        return this.enabledBoolean;
     }
 
     public void setEnabledBoolean(Boolean enabledBoolean) {
@@ -98,7 +98,7 @@ public class UserEntity {
     }
 
     public Boolean getAccountLockedBoolean() {
-        return accountLockedBoolean;
+        return this.accountLockedBoolean;
     }
 
     public void setAccountLockedBoolean(Boolean accountLockedBoolean) {
@@ -106,7 +106,7 @@ public class UserEntity {
     }
 
     public LocalDateTime getCreatedAtLocalDateTime() {
-        return createdAtLocalDateTime;
+        return this.createdAtLocalDateTime;
     }
 
     public void setCreatedAtLocalDateTime(LocalDateTime createdAtLocalDateTime) {
@@ -114,7 +114,7 @@ public class UserEntity {
     }
 
     public LocalDateTime getUpdatedAtLocalDateTime() {
-        return updatedAtLocalDateTime;
+        return this.updatedAtLocalDateTime;
     }
 
     public void setUpdatedAtLocalDateTime(LocalDateTime updatedAtLocalDateTime) {
